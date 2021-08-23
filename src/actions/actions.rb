@@ -4,9 +4,12 @@ module Actions
         next_position = calc_next_position(state) 
         #Verificar que la siguiente casilla sea valida
         if position_is_valid?(state, next_position)
+            move_snake_to(state, next_position)
         else
-        end_game(state)
+            end_game(state)
         end
+        
+    state
     end
 
     private 
@@ -20,7 +23,7 @@ module Actions
                 curr_position.row - 1,
                 curr_position.col
             )
-        when Model::Direction::RIGH
+        when Model::Direction::RIGHT
             #incrementar col 
             return Model ::Coord.new(
                  curr_position.row,
@@ -51,8 +54,9 @@ module Actions
     end
 
     def self.move_snake_to(state, next_position)
-        new_positions = [next_position] + state.sanke.positions[0 ... -1]
+        new_positions = [next_position] + state.snake.positions[0 ... -1]
         state.snake.positions = new_positions
+        state
     end
 
     def self.end_game(state)
