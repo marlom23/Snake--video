@@ -4,7 +4,7 @@ module Actions
         next_position = calc_next_position(state) 
         #Verificar que la siguiente casilla sea valida
         if position_is_food?(state, next_position)
-            grow_snake_to(state, curr_position)
+            grow_snake_to(state, next_position)
             elsif position_is_valid?(state, next_position) 
             move_snake_to(state, next_position)
         else
@@ -45,7 +45,7 @@ module Actions
             )
         when Model::Direction::RIGHT
             #incrementar col 
-            return Model ::Coord.new(
+            return Model::Coord.new(
                  curr_position.row,
                  curr_position.col + 1
             )
@@ -93,7 +93,7 @@ module Actions
         when Model::Direction::RIGHT
             return true if direction != Model::Direction::LEFT
         when Model::Direction::LEFT
-            return true if direction !+ Model::Direction::RIGHT
+            return true if direction != Model::Direction::RIGHT
         end
 
         return false
